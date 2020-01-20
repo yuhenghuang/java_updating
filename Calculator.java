@@ -116,7 +116,7 @@ public class Calculator extends JFrame {
                     case "/": res=num2/num1; break;
                 }
                 tf1.setText(Double.toString(res));
-                System.out.println(num2+sign+num1+"="+res);                    numStr2.delete(0, numStr2.length());
+                System.out.println(num2+sign+num1+"="+res);
 
                 numStr1.delete(0, numStr1.length());
                 numStr2.delete(0, numStr2.length());
