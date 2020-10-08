@@ -1,41 +1,45 @@
+class PrintThread implements Runnable {
+  int rem;
+  Number num;
+
+  PrintThread(Number n, int r) {
+    num = n;
+    rem = r;
+  }
+
+  @Override
+  public void run() {
+    while (num.i<num.max) {
+      num.print(rem);
+    }
+  }
+}
 
 class Number {
   public static void main(String[] args) {
-    Number obj = new Number();
+    Number obj = new Number(200);
 
-    Thread t1 = new Thread(new Runnable(){
-      @Override
-      public void run() {
-        while (true) {
-          obj.print_odd();
-        }
-      }
-    });
+    Thread t1 = new Thread(new PrintThread(obj, 1));
     t1.setName("t1");
 
-    Thread t2 = new Thread(new Runnable(){
-      @Override
-      public void run() {
-        while (true) {
-          obj.print_even();
-        }
-      }
-    });
+    Thread t2 = new Thread(new PrintThread(obj, 0));
     t2.setName("t2");
 
 
     t1.start();
     t2.start();
   }
-  int i;
 
-  Number() {
+  int i, max;
+
+  Number(int m) {
     i = 0;
+    max = m;
   }
 
-  private void print(int rem) {
+  public void print(int rem) {
     synchronized (this) {
-      if (i % 2 == rem)
+      if (i % 2 != rem)
         try {
           wait();
         } 
