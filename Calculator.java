@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class Calculator extends JFrame {
+    private static final long serialVersionUID = 10L;
+
     JButton a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, aPoint, aEqual, aClear, aAdd, aSub, aMul, aDiv;
     JTextField tf1;
     JFrame f1;
@@ -146,5 +148,6 @@ public class Calculator extends JFrame {
 
     public static void main(String[] args) {
         Calculator cal = new Calculator();
+        System.out.println(cal);
     }
 }

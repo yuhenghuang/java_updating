@@ -1,30 +1,28 @@
 class PrintThread implements Runnable {
-  int rem;
+  boolean is_even;
   Number num;
 
-  PrintThread(Number n, int r) {
+  PrintThread(Number n, boolean is_even) {
     num = n;
-    rem = r;
+    this.is_even = is_even;
   }
 
   @Override
   public void run() {
-    while (num.i<num.max) {
-      num.print(rem);
-    }
+    while (num.i<num.max) 
+      num.print(is_even);
   }
 }
 
 class Number {
   public static void main(String[] args) {
-    Number obj = new Number(200);
+    Number obj = new Number(20);
 
-    Thread t1 = new Thread(new PrintThread(obj, 1));
+    Thread t1 = new Thread(new PrintThread(obj, false));
     t1.setName("t1");
 
-    Thread t2 = new Thread(new PrintThread(obj, 0));
+    Thread t2 = new Thread(new PrintThread(obj, true));
     t2.setName("t2");
-
 
     t1.start();
     t2.start();
@@ -33,13 +31,13 @@ class Number {
   int i, max;
 
   Number(int m) {
-    i = 0;
+    i = 1;
     max = m;
   }
 
-  public void print(int rem) {
+  public void print(boolean is_even) {
     synchronized (this) {
-      if (i % 2 != rem)
+      if (i % 2 != (is_even ? 0 : 1))
         try {
           wait();
         } 
@@ -48,14 +46,5 @@ class Number {
       System.out.println(Thread.currentThread().getName() + " -> " + i++);
       notify();
     }
-  }
-
-  public void print_odd() {
-    print(0);
-  }
-
-
-  public void print_even() {
-    print(1);
   }
 }
